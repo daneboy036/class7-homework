@@ -16,7 +16,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 dir('week29/terraform') {
-                    sh 'terraform -chdir=week29/terraform init'
+                    sh 'terraform init'
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 dir('week29/terraform') {
-                    sh 'terraform -chdir=week29/terraform plan -out=tfplan'
+                    sh 'terraform plan -out=tfplan'
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 dir('week29/terraform') {
-                    sh 'terraform -chdir=week29/terraform apply -auto-approve tfplan'
+                    sh 'terraform apply -auto-approve tfplan'
                 }
             }
         }
@@ -53,7 +53,7 @@ pipeline {
                             ]
                         )
                         if (destroyChoice == 'yes') {
-                            sh 'terraform -chdir=week29/terraform destroy -auto-approve'
+                            sh 'terraform destroy -auto-approve'
                         } else {
                             echo "Skipping destroy"
                         }
