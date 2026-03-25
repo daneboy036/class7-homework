@@ -15,40 +15,48 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                sh 'terraform -chdir=week29/terraform init'
+                dir('week29/terraform') {
+                    sh 'terraform -chdir=week29/terraform init'
+                }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                sh 'terraform -chdir=week29/terraform plan -out=tfplan'
+                dir('week29/terraform') {
+                    sh 'terraform -chdir=week29/terraform plan -out=tfplan'
+                }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform -chdir=week29/terraform apply -auto-approve tfplan'
+                dir('week29/terraform') {
+                    sh 'terraform -chdir=week29/terraform apply -auto-approve tfplan'
+                }
             }
         }
 
         stage('Optional Destroy') {
             steps {
-                script {
-                    def destroyChoice = input(
-                        message: 'Do you want to run terraform destroy?',
-                        ok: 'Submit',
-                        parameters: [
-                            choice(
-                                name: 'DESTROY',
-                                choices: ['no', 'yes'],
-                                description: 'Select yes to destroy resources'
-                            )
-                        ]
-                    )
-                    if (destroyChoice == 'yes') {
-                        sh 'terraform -chdir=week29/terraform destroy -auto-approve'
-                    } else {
-                        echo "Skipping destroy"
+                dir('week29/terraform') {
+                    script {
+                        def destroyChoice = input(
+                            message: 'Do you want to run terraform destroy?',
+                            ok: 'Submit',
+                            parameters: [
+                                choice(
+                                    name: 'DESTROY',
+                                    choices: ['no', 'yes'],
+                                    description: 'Select yes to destroy resources'
+                                )
+                            ]
+                        )
+                        if (destroyChoice == 'yes') {
+                            sh 'terraform -chdir=week29/terraform destroy -auto-approve'
+                        } else {
+                            echo "Skipping destroy"
+                        }
                     }
                 }
             }
