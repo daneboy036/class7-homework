@@ -1,8 +1,5 @@
-# We're Okay to Allow Public Access to the Bucket
-# aws_s3_bucket
-
 resource "aws_s3_bucket" "bucket" {
-  bucket_prefix = "dboy_hw_wk29_"
+  bucket_prefix = "dboy-hw-wk29-"
   force_destroy = true
 
   tags = {

@@ -5,6 +5,12 @@ terraform {
       version = "6.17.0"
     }
   }
+  backend "s3" {
+    bucket  = "bmc-daneboy-tf-state"
+    key     = "class7/homework/week29.tfstate"
+    region  = "us-east-1"
+    encrypt = true
+  }
 }
 
 provider "aws" {
