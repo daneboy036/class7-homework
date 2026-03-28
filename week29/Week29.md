@@ -24,4 +24,4 @@ This is the gut check week.
       ![Webhook invoke](./deliverables/last-webhook-successful.png)
       ![Polling Log](./deliverables/polling-log.png)
 - [x] Files in s3
-      ![Files in S3](./deliverables/tfiles-in-s3.png)
+      ![Files in S3](./deliverables/files-in-s3.png)
