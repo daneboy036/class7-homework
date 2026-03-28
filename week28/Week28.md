@@ -12,4 +12,5 @@ We'll use an EC2 instance to host jenkins. Once jenkins is configured and instal
 
 # Deliverables
 
-- [ ] Deploy a jenkins pipeline using a jenkins file
+- [x] Deploy a jenkins pipeline using a jenkins file
+      ![Pipeline Success](./pipeline-success.png)
