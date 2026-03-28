@@ -15,4 +15,27 @@ resource "aws_s3_bucket_public_access_block" "bucket_disable_public_access" {
   block_public_policy     = true
   restrict_public_buckets = true
 }
-# add all files in deliverables directory
+
+resource "aws_s3_object" "polling_log" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "polling-log.png"
+  source       = "../deliverables/polling-log.png"
+  content_type = "image/png"
+  etag         = filemd5("../deliverables/polling-log.png")
+}
+
+resource "aws_s3_object" "stages" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "stages.png"
+  source       = "../deliverables/stages.png"
+  content_type = "image/png"
+  etag         = filemd5("../deliverables/stages.png")
+}
+
+resource "aws_s3_object" "last_webhook_successful" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "last-webhook-successful.png"
+  source       = "../deliverables/last-webhook-successful..png"
+  content_type = "image/png"
+  etag         = filemd5("../deliverables/last-webhook-successful..png")
+}
