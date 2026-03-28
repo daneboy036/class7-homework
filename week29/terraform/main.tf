@@ -10,12 +10,28 @@ resource "aws_s3_bucket" "bucket" {
 
 resource "aws_s3_bucket_public_access_block" "bucket_disable_public_access" {
   bucket                  = aws_s3_bucket.bucket.id
-  block_public_acls       = true
-  ignore_public_acls      = true
-  block_public_policy     = true
-  restrict_public_buckets = true
+  block_public_acls       = false
+  ignore_public_acls      = false
+  block_public_policy     = false
+  restrict_public_buckets = false
 }
 
+# allow reading objects in bucket
+resource "aws_s3_bucket_policy" "public_read_bucket_policy" {
+  bucket = aws_s3_bucket.bucket.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.bucket.arn}/*"
+      },
+    ]
+  })
+}
 resource "aws_s3_object" "polling_log" {
   bucket       = aws_s3_bucket.bucket.id
   key          = "polling-log.png"
@@ -54,4 +70,12 @@ resource "aws_s3_object" "file_in_s3" {
   source       = "../deliverables/files-in-s3.png"
   content_type = "image/png"
   etag         = filemd5("../deliverables/files-in-s3.png")
+}
+
+resource "aws_s3_object" "armageddon_link" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "armageddon-link.txt"
+  source       = "../deliverables/armageddon-link.txt"
+  content_type = "text/plain"
+  etag         = filemd5("../deliverables/armageddon-link.txt")
 }
