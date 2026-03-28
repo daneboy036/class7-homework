@@ -35,7 +35,7 @@ resource "aws_s3_object" "stages" {
 resource "aws_s3_object" "last_webhook_successful" {
   bucket       = aws_s3_bucket.bucket.id
   key          = "last-webhook-successful.png"
-  source       = "../deliverables/last-webhook-successful..png"
+  source       = "../deliverables/last-webhook-successful.png"
   content_type = "image/png"
-  etag         = filemd5("../deliverables/last-webhook-successful..png")
+  etag         = filemd5("../deliverables/last-webhook-successful.png")
 }
