@@ -39,3 +39,11 @@ resource "aws_s3_object" "last_webhook_successful" {
   content_type = "image/png"
   etag         = filemd5("../deliverables/last-webhook-successful.png")
 }
+
+resource "aws_s3_object" "theo_signoff" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "theo-signoff-temp.png"
+  source       = "../deliverables/theo-signoff-temp.png"
+  content_type = "image/png"
+  etag         = filemd5("../deliverables/theo-signoff-temp.png")
+}
