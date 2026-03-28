@@ -47,3 +47,11 @@ resource "aws_s3_object" "theo_signoff" {
   content_type = "image/png"
   etag         = filemd5("../deliverables/theo-signoff-temp.png")
 }
+
+resource "aws_s3_object" "file_in_s3" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "files-in-s3.png"
+  source       = "../deliverables/files-in-s3.png"
+  content_type = "image/png"
+  etag         = filemd5("../deliverables/files-in-s3.png")
+}
