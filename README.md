@@ -2,5 +2,6 @@
 
 | Week | Deliverables                  | Notes |
 | ---- | ----------------------------- | ----- |
-| 1    | [Week 28](./week28/Week28.md) |       |
-| 2    | [Week 29](./week29/Week29.md) |       |
+| 28   | [Week 28](./week28/Week28.md) |       |
+| 29   | [Week 29](./week29/Week29.md) |       |
+| 32   | [Week 32](./week32/Week32.md) |       |
