@@ -1,0 +1,66 @@
+# api gateway
+## waf doesn't support http apis only rest apis
+## so use rest api or use waf -> cloudfront -> your http gateway (if you do this make sure nobody can hit the gw directly)
+resource "aws_apigatewayv2_api" "lambda_api_gw" {
+  name          = "week33-api-gw"
+  protocol_type = "HTTP"
+}
+
+## allow api gateway to invoke the specific lambda function -- use aws_lambda_permission research when to use this
+
+
+
+## rest apis (aws_api_gateway_rest_api) vs http apis (aws_apigatewayv2_api)
+
+
+# integrations
+resource "aws_apigatewayv2_integration" "python_integration" {
+  api_id           = aws_apigatewayv2_api.lambda_api_gw.id
+  integration_type = "AWS_PROXY" # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-integration-types.html
+  integration_uri  = aws_lambda_function.python_lambda.invoke_arn
+}
+
+resource "aws_apigatewayv2_integration" "node_integration" {
+  api_id           = aws_apigatewayv2_api.lambda_api_gw.id
+  integration_type = "AWS_PROXY" # https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-integration-types.html
+  integration_uri  = aws_lambda_function.node_lambda.invoke_arn
+}
+
+# routes
+resource "aws_apigatewayv2_route" "python_route" {
+  api_id    = aws_apigatewayv2_api.lambda_api_gw.id
+  route_key = "GET /python"                                                        # HTTP Method PATH -- method can be ANY
+  target    = "integrations/${aws_apigatewayv2_integration.python_integration.id}" # format: integrations/{integration id}
+}
+
+resource "aws_apigatewayv2_route" "noderoute" {
+  api_id    = aws_apigatewayv2_api.lambda_api_gw.id
+  route_key = "GET /node"                                                        # HTTP Method PATH -- method can be ANY
+  target    = "integrations/${aws_apigatewayv2_integration.node_integration.id}" # format: integrations/{integration id}
+}
+
+# stages
+resource "aws_apigatewayv2_stage" "prod_stage" {
+  api_id      = aws_apigatewayv2_api.lambda_api_gw.id
+  name        = "prod"
+  auto_deploy = "true"
+}
+
+# Permissions -- api gateway must be able to invoke your lambda function aws_lambda_permissoin grants external sources permission to invoke a particular lambda function
+resource "aws_lambda_permission" "api_python" {
+  statement_id  = "AllowAPIGWInvokePythonLambda"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.python_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.lambda_api_gw.execution_arn}/*" # allow form any stage, method, resource...
+}
+
+resource "aws_lambda_permission" "api_node" {
+  statement_id  = "AllowAPIGWInvokeNodeLambda"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.node_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.lambda_api_gw.execution_arn}/*" # allow form any stage, method, resource...
+}
