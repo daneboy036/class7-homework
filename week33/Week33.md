@@ -35,7 +35,7 @@ We'll build on the work we've been doing with lambda. The lambda functions will 
 - [x] Created Lambda Functions
       ![Created Lambdas](./deliverables/lambda-console1.png)
 - [x] API Gateway
-      ![API Gateway](./deliverables/api-gateway.png)
+      ![API Gateway](./deliverables/http-and-rest-gateways.png)
 - [x] WAF
       ![WAF](./deliverables/waf.png)
 - [x] Python Requests
