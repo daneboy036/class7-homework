@@ -30,6 +30,10 @@ We'll build on the work we've been doing with lambda. The lambda functions will 
 
 # Deliverables
 
+- [x] Terraform Apply
+      ![TF Apply](./deliverables/tf-apply.png)
+- [x] Created Lambda Functions
+      ![Created Lambdas](./deliverables/lambda-console1.png)
 - [x] `curl "$(terraform output -raw api_url)/python?name=Chewbacca"` and `curl "$(terraform output -raw api_url)/node?name=Malgus"`
       ![Curl Test](./deliverables/curl-test-1.png)
 
