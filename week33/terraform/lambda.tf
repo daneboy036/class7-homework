@@ -75,7 +75,7 @@ resource "aws_lambda_function" "node_lambda" {
   function_name = local.node_lambda_function_name
   role          = aws_iam_role.lambda_execution_role.arn
   filename      = data.archive_file.node_lambda_zip.output_path
-  runtime       = "nodejs18.x"
+  runtime       = "nodejs24.x"
   handler       = "basic-lambda.handler" # filename.handler_function_name
   package_type  = "Zip"                  # defaults to zip
   # default memory size is 128MB
