@@ -14,20 +14,6 @@ name: Homework Week 33
 
 We'll build on the work we've been doing with lambda. The lambda functions will be exposed via api gateway and the api gateway will have a WAF associated with it.
 
-# Notes
-
-- lambda test payload:
-
-```json
-{
-  "queryStringParameters": {
-    "name": "The Duke of Earl"
-  }
-}
-```
-
-- WAF isn't suported for `aws_apigatewayv2_api` unless you put CloudFront in front of the api
-
 # Deliverables
 
 - [x] Terraform Apply
