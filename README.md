@@ -6,3 +6,4 @@
 | 29   | [Week 29](./week29/README.md) |       |
 | 32   | [Week 32](./week32/README.md) |       |
 | 32   | [Week 33](./week33/README.md) |       |
+| 32   | [Week 34](./week34/README.md) |       |
